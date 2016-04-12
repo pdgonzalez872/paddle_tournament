@@ -1,0 +1,53 @@
+<div class="container">
+<h2> <%= @draw.tournament.name %> - <%= @draw.name %></h2>
+
+<br>
+  <%= link_to "Back", tournament_path(id: @draw.tournament.id), class: "dark-hover" %>
+<br>
+
+<main class="bracket" id="tournament">
+
+  <%# This really needs to be refactored... %>
+
+  <% if @draw.size == 32 %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "sixty_four"} %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "oitavas"} %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "quarters"} %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "semis"} %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "final"} %>
+
+
+  <% elsif @draw.size == 16 %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "oitavas"} %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "quarters"} %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "semis"} %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "final"} %>
+
+
+  <% elsif @draw.size == 8 %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "quarters"} %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "semis"} %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "final"} %>
+
+  <% elsif @draw.size == 4 %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "semis"} %>
+
+  <%= render partial: "draw_matches", locals: {draw: @draw, round_name: "final"} %>
+
+  <% end %>
+
+  </main>
+</div>

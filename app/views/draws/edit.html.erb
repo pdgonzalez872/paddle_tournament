@@ -1,0 +1,15 @@
+<h1>Edit <%= @draw.tournament.name %> - <%= @draw.name %></h1>
+
+<br>
+
+<main id="tournament">
+  <%= render partial: "edit_draw_matches", locals: {draw: @draw, round_name: "sixty_four"} %>
+
+  <%= render partial: "edit_draw_matches", locals: {draw: @draw, round_name: "oitavas"} %>
+
+  <%= render partial: "edit_draw_matches", locals: {draw: @draw, round_name: "quarters"} %>
+
+  <%= render partial: "edit_draw_matches", locals: {draw: @draw, round_name: "semis"} %>
+
+  <%= render partial: "edit_draw_matches", locals: {draw: @draw, round_name: "final"} %>
+</main>

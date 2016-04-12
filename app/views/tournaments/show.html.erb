@@ -1,0 +1,56 @@
+<br>
+<br>
+<div class="text-center box">
+  <h2><%= @tournament.name %></h2>
+</div>
+<br>
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <%= link_to "Home", root_path %>
+        </li>
+        <li>
+          <a href="/players.html">Players</a>
+        </li>
+        <li>
+          <a href="/locations">Locations</a>
+        </li>
+      </ul>
+      </div>
+  </div>
+</nav>
+<br>
+
+<div class="container">
+  <hr>
+  <h3 class="text-center">Tournament Draws</h3>
+  <hr>
+
+  <% @tournament.draws.each do |d| %>
+    <div class="row">
+      <div class="col-md-2 text-center">
+        <h4><%= link_to "#{d.name}", tournament_draw_path(tournament_id: @tournament.id,
+                                                          id: d.id), class: "draw" %></h4>
+      </div>
+      <div class="col-md-10 back-white" id="frames<%= d.id %>">
+        <!-- <iframe src="<%= tournament_draw_path(tournament_id: @tournament.id, id: d.id) %>"></iframe> -->
+        <script>
+          $( "#frames<%= d.id %>" ).load( "<%= tournament_draw_path(tournament_id: @tournament.id, id: d.id) %> #tournament" );
+        </script>
+      </div>
+    </div>
+    <br>
+    <br>
+  <% end %>
+</div>

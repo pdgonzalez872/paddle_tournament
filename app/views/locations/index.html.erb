@@ -1,0 +1,50 @@
+<br>
+<br>
+<div class="text-center box">
+  <h2>Locations</h2>
+</div>
+<br>
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li>
+          <%= link_to "Home", root_path %>
+        </li>
+        <li>
+          <a href="/players.html">Players</a>
+        </li>
+        <li>
+          <a href="/tournaments.html">Tournaments</a>
+        </li>
+      </ul>
+      </div>
+  </div>
+</nav>
+<br>
+
+<div class="container text-center">
+
+  <% @locations.each do |l| %>
+    <div>
+      <h2> <%= "#{l.short_letters} - #{l.name}" %> </h2>
+    </div>
+
+    <div>
+      <h4> Address: <%= l.address %> </h4>
+    </div>
+
+    <br>
+
+  <% end %>
+</div>
+

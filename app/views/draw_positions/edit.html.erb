@@ -1,0 +1,11 @@
+<h3>Match #<%= @dp.match.match_number %> - Draw Position# <%= @dp.draw_positions_number %></h3>
+
+<!-- TODO render partial match details, nice little table with summary -->
+
+<%= form_for [@dp.draw.tournament, @dp.draw, @dp] do |f| %>
+  <%= f.label "Who won this match?"%>
+  <%= f.collection_select :winner, @player_options, :id, :name %>
+  <%= f.text_field :score, placeholder: "Score" %>
+  <%= f.hidden_field :player_options, value: @player_options.to_json %>
+  <%= f.submit %>
+<% end %>

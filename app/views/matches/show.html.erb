@@ -1,0 +1,16 @@
+<h4><%= link_to "Back to Draw", tournament_draw_path(tournament_id: @match.draw.tournament.id, id: @match.draw.id) %></h4>
+
+<h2> Match Details </h2>
+
+<%= @match.location %>
+
+<br>
+
+<table>
+  <tr>
+    <td> <%= @match.winner.name %> </td>
+    <td> def </td>
+    <td> <%= @match.loser.name %>  </td>
+    <td> <%= @match.score %> </td>
+  </tr>
+</table>

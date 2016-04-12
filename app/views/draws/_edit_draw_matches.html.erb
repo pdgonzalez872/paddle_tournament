@@ -1,0 +1,8 @@
+<ul class="round round-1">
+  <li class="spacer">&nbsp;</li>
+
+  <% draw.matches.round(round_name).order('match_number asc').each do |m| %>
+    <%= render partial: "matches/edit_matches", locals: {match: m} %>
+  <% end %>
+
+</ul>

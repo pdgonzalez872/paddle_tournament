@@ -1,0 +1,28 @@
+
+<% if match.no_players_are_nil? %>
+
+  <li class="game game-top">    <span> <%= match.display_location %> </span></li>
+  <li class="game game-spacer">  </li>
+  <li class="game game-bottom ">    <span> <%= match.display_time %> </span></li>
+
+<% elsif match.top_player_is_nil? %>
+
+  <li class="game game-top">  <span> <%= match.display_location %> </span></li>
+  <li class="game game-spacer">  </li>
+  <li class="game game-bottom "> <%= match.draw_positions.last.draw_positions_players.last.player.name %> <%= match.draw_positions.last.previous_match_score %> <span> <%= match.display_time %> </span></li>
+
+<% elsif match.bottom_player_is_nil? %>
+
+  <li class="game game-top"> <%= match.draw_positions.first.draw_positions_players.last.player.name %> <%= match.draw_positions.first.previous_match_score %> <span> <%= match.display_location %> </span></li>
+  <li class="game game-spacer">  </li>
+  <li class="game game-bottom ">  <span> <%= match.display_time %> </span></li>
+
+<% else %>
+
+  <li class="game game-top"> <%= match.draw_positions.first.draw_positions_players.last.player.name %> <%= match.draw_positions.first.previous_match_score %> <span> <%= match.display_location %> </span></li>
+  <li class="game game-spacer">  </li>
+  <li class="game game-bottom "> <%= match.draw_positions.last.draw_positions_players.last.player.name %> <%= match.draw_positions.last.previous_match_score %> <span> <%= match.display_time %> </span></li>
+
+<% end %>
+
+<li class="spacer">&nbsp;</li>
