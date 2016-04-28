@@ -3,4 +3,3 @@ class RemoveMatchIdFromLocation < ActiveRecord::Migration
     remove_column :locations, :match_id, :integer
   end
 end
-  
