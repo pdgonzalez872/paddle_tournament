@@ -1,3 +1,5 @@
+https://circleci.com/gh/pdgonzalez872/paddle_tournament.png?circle-token=ddfb52c9426692aa999c1d5310e67a7ec169f649
+
 # Intro
 The idea of this project is to create a simple interface for keeping records for a paddle tournament. Here is an example of a [draw](public/buenos_aires_draw.pdf). A "draw" in tennis is considered to be the same as a "bracket" in basketball.
 
