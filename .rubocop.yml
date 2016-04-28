@@ -3,3 +3,6 @@ Rails:
 
 AllCops:
   TargetRubyVersion: 2.1
+
+Metrics/LineLength:
+  Max: 120
