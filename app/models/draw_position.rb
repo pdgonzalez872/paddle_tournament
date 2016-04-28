@@ -9,15 +9,15 @@ class DrawPosition < ActiveRecord::Base
   attr_accessor :winner, :score
 
   def has_player?
-    self.players.first.nil?
+    players.first.nil?
   end
 
   def previous_match_score
     draw = Draw.find_by(id: self.draw.id)
-    match = draw.matches.find_by(match_number: self.draw_positions_number)
+    match = draw.matches.find_by(match_number: draw_positions_number)
 
     if match.nil?
-      return ""
+      return ''
     else
       return match.score
     end
@@ -25,20 +25,19 @@ class DrawPosition < ActiveRecord::Base
 
   def find_previous_match
     draw = Draw.find_by(id: self.draw.id)
-    match = draw.matches.find_by(match_number: self.draw_positions_number)
+    match = draw.matches.find_by(match_number: draw_positions_number)
     match
   end
 
   # To fix error: find DrawPosition you want fixed, then find player, then use the below:
   def fix_human_error(player_id:)
     dpp = DrawPositionsPlayer.new(player_id: player_id)
-    self.draw_positions_players << dpp
+    draw_positions_players << dpp
 
     # update match here: match_number == self.draw_positions_number
     pl = Player.find_by(id: player_id)
-    match = Match.find_by(match_number: self.draw_positions_number)
+    match = Match.find_by(match_number: draw_positions_number)
     match.winner_id = pl.id
     match.save
   end
-
 end

@@ -11,75 +11,73 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218032609) do
-
+ActiveRecord::Schema.define(version: 20_160_218_032_609) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "draw_positions", force: :cascade do |t|
-    t.integer  "match_id"
-    t.integer  "draw_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "draw_positions_number"
+  create_table 'draw_positions', force: :cascade do |t|
+    t.integer  'match_id'
+    t.integer  'draw_id'
+    t.datetime 'created_at',            null: false
+    t.datetime 'updated_at',            null: false
+    t.integer  'draw_positions_number'
   end
 
-  create_table "draw_positions_players", force: :cascade do |t|
-    t.integer  "draw_position_id"
-    t.integer  "player_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+  create_table 'draw_positions_players', force: :cascade do |t|
+    t.integer  'draw_position_id'
+    t.integer  'player_id'
+    t.datetime 'created_at',       null: false
+    t.datetime 'updated_at',       null: false
   end
 
-  create_table "draws", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "size"
-    t.integer  "tournament_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+  create_table 'draws', force: :cascade do |t|
+    t.string   'name'
+    t.integer  'size'
+    t.integer  'tournament_id'
+    t.datetime 'created_at',    null: false
+    t.datetime 'updated_at',    null: false
   end
 
-  create_table "locations", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.string   "name"
-    t.string   "address"
-    t.string   "short_letters"
+  create_table 'locations', force: :cascade do |t|
+    t.datetime 'created_at',    null: false
+    t.datetime 'updated_at',    null: false
+    t.string   'name'
+    t.string   'address'
+    t.string   'short_letters'
   end
 
-  create_table "matches", force: :cascade do |t|
-    t.integer  "draw_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "location_id"
-    t.datetime "time"
-    t.integer  "match_number"
-    t.string   "name"
-    t.integer  "winner_id"
-    t.integer  "loser_id"
-    t.string   "score"
-    t.string   "previous_match_score"
+  create_table 'matches', force: :cascade do |t|
+    t.integer  'draw_id'
+    t.datetime 'created_at',           null: false
+    t.datetime 'updated_at',           null: false
+    t.integer  'location_id'
+    t.datetime 'time'
+    t.integer  'match_number'
+    t.string   'name'
+    t.integer  'winner_id'
+    t.integer  'loser_id'
+    t.string   'score'
+    t.string   'previous_match_score'
   end
 
-  create_table "players", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "phone_number"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "current_draw_position"
-    t.integer  "draw_position_id"
+  create_table 'players', force: :cascade do |t|
+    t.string   'name'
+    t.string   'email'
+    t.string   'phone_number'
+    t.datetime 'created_at',            null: false
+    t.datetime 'updated_at',            null: false
+    t.integer  'current_draw_position'
+    t.integer  'draw_position_id'
   end
 
-  create_table "static_pages", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'static_pages', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "tournaments", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'tournaments', force: :cascade do |t|
+    t.string   'name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
-
 end

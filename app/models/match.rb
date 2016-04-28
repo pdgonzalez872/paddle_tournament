@@ -9,15 +9,15 @@ class Match < ActiveRecord::Base
   attr_accessor :player_options
 
   def winner
-    Player.find_by(id: self.winner_id)
+    Player.find_by(id: winner_id)
   end
 
   def loser
-    Player.find_by(id: self.loser_id)
+    Player.find_by(id: loser_id)
   end
 
   def calculate_loser
-    loser = self.players.select { |player| player.id != self.winner_id }
+    loser = players.select { |player| player.id != winner_id }
     self.loser_id = loser[0].id
   end
 
@@ -25,69 +25,63 @@ class Match < ActiveRecord::Base
     self.winner_id = winner.id
     data = JSON.parse(player_options)
 
-    if winner.id == data.first['id']
-      self.loser_id = data.last['id']
-    else
-      self.loser_id = data.first['id']
-    end
-    self.save
+    self.loser_id = if winner.id == data.first['id']
+                      data.last['id']
+                    else
+                      data.first['id']
+                    end
+    save
   end
 
   def update_score(score)
     self.score = score
-    self.save
+    save
   end
 
   def display_previous_match_score(draw_position)
-    begin
-      match = Draw.previous_match(draw_position: draw_position)
-      match.score.nil? ? "-" : match.score
-    rescue NoMethodError
-      return ""
-    end
+    match = Draw.previous_match(draw_position: draw_position)
+    match.score.nil? ? '-' : match.score
+  rescue NoMethodError
+    return ''
   end
 
   def display_time
-    begin
-      self.time.strftime(("%-I:%M"))
-    rescue NoMethodError
-      "?"
-    end
+    time.strftime('%-I:%M')
+  rescue NoMethodError
+    '?'
   end
 
   def display_location
-    begin
-      self.location.short_letters
-    rescue
-      "?"
-    end
+    location.short_letters
+  rescue
+    '?'
   end
 
   def has_two_players?
-    self.players.count == 2
+    players.count == 2
   end
 
   def has_only_one_player?
-    self.players.count == 1
+    players.count == 1
   end
 
   def has_adjacent_players?
-    Draw.match_has_adjacent_players?(self.draw_positions.first) && Draw.match_has_adjacent_players?(self.draw_positions.last)
+    Draw.match_has_adjacent_players?(draw_positions.first) && Draw.match_has_adjacent_players?(draw_positions.last)
   end
 
   def no_players_are_nil?
-    self.draw_positions.first.players.last == nil && self.draw_positions.last.players.last == nil
+    draw_positions.first.players.last.nil? && draw_positions.last.players.last.nil?
   end
 
   def top_player_is_nil?
-    self.draw_positions.first.players.empty?
+    draw_positions.first.players.empty?
   end
 
   def bottom_player_is_nil?
-    self.draw_positions.last.players.empty?
+    draw_positions.last.players.empty?
   end
 
   def self.round(round_name)
-    Match.where(name: "#{round_name}")
+    Match.where(name: round_name.to_s)
   end
 end

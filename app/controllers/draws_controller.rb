@@ -1,5 +1,4 @@
 class DrawsController < ApplicationController
-
   def index
     @draws = Draw.all
   end

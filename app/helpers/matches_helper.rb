@@ -23,8 +23,6 @@ end
 #
 # <% end %>
 
-
-
 # <% if match.players.count == 2 %>
 #   <%= render partial: "draw_positions/show_both_players", locals: { match: match }%>
 #
