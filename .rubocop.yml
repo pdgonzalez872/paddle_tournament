@@ -3,6 +3,11 @@ Rails:
 
 AllCops:
   TargetRubyVersion: 2.1
+  Exclude:
+  - 'db/**/*'
+  - 'config/**/*'
+  - 'script/**/*'
+
 
 Metrics/LineLength:
   Max: 120
