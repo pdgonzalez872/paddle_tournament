@@ -2,17 +2,12 @@ require 'rails_helper'
 
 RSpec.describe DrawPositionsController, type: :controller do
 
-  xdescribe '#edit' do
-    it 'is successful' do
-      get edit_tournament_draw_draw_position_path(id: 1,
-                                                            draw_id: 1,
-                                                            tournament_id: 1)
+  describe '#edit' do
+    let(:tournament) { FactoryGirl.create(:tournament, name: 'wimbledon') }
 
-      expect(response).to render_template(:edit)
+    it 'makes a tournament' do
+      expect(tournament.name).to eq('wimbledon')
     end
   end
 
-  describe 'update' do
-
-  end
 end
