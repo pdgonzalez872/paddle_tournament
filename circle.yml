@@ -5,3 +5,4 @@ machine:
 dependencies:
   pre:
     - gem install bundler
+    - bundle exec rake db:drop db:create db:migrate db:seed RAILS_ENV=test
