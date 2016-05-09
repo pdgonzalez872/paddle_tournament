@@ -12,9 +12,10 @@ describe 'when I visit the edit draw position page after seeding the test databa
 
   context 'has the main feature available' do
 
-    let(:player_1) { Player.find_by(name: 'Laird/Watkins') }
-    let(:draw)     { Draw.find(1) }
-    let(:match)    { draw.matches.find_by(match_number: 16) }
+    let(:tournament)  { Tournament.find_by(id: draw.tournament.id) }
+    let(:draw)        { Draw.find(1) }
+    let(:match)       { draw.matches.find_by(match_number: 16) }
+    let(:player_1)    { Player.find_by(name: 'Laird/Watkins') }
 
     it 'can advance players correctly and adds winners to matches' do
       advance_winner(draw_position_id: 16, winner_name: 'Laird/Watkins')
@@ -24,6 +25,13 @@ describe 'when I visit the edit draw position page after seeding the test databa
 
       expect(page).to have_text('Laird/Watkins')
       expect(player_1.id).to eq(match.winner_id)
+
+      visit tournament_draw_match_path(id: match.id,
+                                       tournament_id: tournament.id,
+                                       draw_id: draw.id)
+
+      expect(page).to have_text("Match Details")
+      expect(page).to have_text("Laird/Watkins  def	Gartzke/Schacherer")
     end
   end
 
