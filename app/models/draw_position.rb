@@ -14,6 +14,7 @@ class DrawPosition < ActiveRecord::Base
 
   def previous_match_score
     draw = Draw.find_by(id: self.draw.id)
+    # can use #find_previous_match here
     match = draw.matches.find_by(match_number: draw_positions_number)
 
     if match.nil?

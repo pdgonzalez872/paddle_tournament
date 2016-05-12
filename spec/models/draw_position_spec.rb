@@ -1,11 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe DrawPosition, type: :model do
-  let(:player)           { Player.new(name: 'Kelsey Laird') }
-  let(:draw_position)    { DrawPosition.new }
+
+  # relies on seeded data
+  let(:main_draw)              { Draw.find(1) }
+  let(:player)                 { Player.find_by(name: 'Laird/Watkins') }
+
+  let(:first_draw_position) do
+    main_draw.draw_positions.find_by(draw_positions_number: 32)
+  end
+
+  let(:first_match) do
+    main_draw.matches.find_by(match_number: 16)
+  end
 
   it 'creates the correct class' do
-    expect(draw_position).to be_instance_of described_class
+    expect(first_draw_position).to be_instance_of described_class
   end
 
   context 'Associations' do
@@ -16,19 +26,43 @@ RSpec.describe DrawPosition, type: :model do
     it { should have_many(:players) }
   end
 
+  # TODO: current coverage is 76.0%. Increase this
+
   context '#has_player' do
     it 'has a player' do
-      draw_position.players << player
-      expect(draw_position.players.first).to eq player
-      expect(draw_position.has_player?).to eq false
+      # TODO: change this method to return true.
+      # this is a bad implementation. It should return true if it has a player
+
+      expect(first_draw_position.players).to include player
+      expect(first_draw_position.has_player?).to eq false
     end
   end
 
-  context '#previous_match_score' do
+  # TODO: this is very coupled together. this class knows too much. Need an organizer/manager class for this
+  context '#find_previous_match' do
+
+    let(:second_round_first_draw_position) do
+      main_draw.draw_positions.find_by(draw_positions_number: 16)
+    end
+
+    it 'has a relationship with its Match parent' do
+      result = second_round_first_draw_position.draw_positions_number
+      expect(result).to eq first_match.match_number
+    end
+
+    it 'can find its previous match' do
+      result = second_round_first_draw_position.find_previous_match
+      expect(result).to eq first_match
+    end
   end
 
-  context '#find_previous_match' do
+  # This method is used here: app/views/matches/_match.html.erb
+  context '#previous_match_score' do
+    it 'can find the previous match score' do
+
+    end
   end
+
 
   context '#fix_human_error' do
   end
