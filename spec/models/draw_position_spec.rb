@@ -30,8 +30,6 @@ RSpec.describe DrawPosition, type: :model do
     it { should have_many(:players) }
   end
 
-  # TODO: current coverage is 76.0%. Increase this
-
   context '#has_player' do
     it 'has a player' do
       # TODO: change this method to return true.
