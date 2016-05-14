@@ -32,6 +32,8 @@ describe 'when I visit the edit draw position page after seeding the test databa
 
       expect(page).to have_text("Match Details")
       expect(page).to have_text("Laird/Watkins  def	Gartzke/Schacherer")
+      expect(match.winner).to eq(player_1)
+
     end
   end
 
