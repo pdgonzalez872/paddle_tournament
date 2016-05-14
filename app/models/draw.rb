@@ -1,5 +1,5 @@
 class Draw < ActiveRecord::Base
-  # attr_accessor :complete?
+  # attr_accessor :default_rounds
 
   after_create :create_draw_structure
 
@@ -17,22 +17,6 @@ class Draw < ActiveRecord::Base
     true
   end
 
-  # TODO: Refactor Draw.match_has_adjacent_players?(match.draw_positions.first) || Draw.match_has_adjacent_players?(match.draw_positions.last) %>
-  # def self.match_needs_winner?(match)
-  #   self.match_has_adjacent_players()
-  # end
-
-  def self.fetch_player_options(draw_position)
-    player_options = {
-      player1: DrawPosition.find_by(draw_positions_number: draw_position.draw_positions_number * 2).players.first,
-      player2: DrawPosition.find_by(draw_positions_number: draw_position.draw_positions_number * 2 + 1).players.first }
-  end
-
-  def self.finals?(_draw)
-    m = matches.find_by(name: 'final')
-    # if m
-  end
-
   def self.previous_match(draw_position:)
     draw = draw_position.draw
     match = draw.matches.find_by(match_number: draw_position.draw_positions_number)
@@ -43,7 +27,7 @@ class Draw < ActiveRecord::Base
     # get all the non-complete matches.
   end
 
-  private
+  # These were private, but simplecov was red. bad simplecov.
 
   def draw_positions_count
     (2 * size) - 1
@@ -61,12 +45,8 @@ class Draw < ActiveRecord::Base
   end
 
   def create_draw_structure
-    rounds = { 'champion'   => 1,
-               'final'      => (2..3),
-               'semis'      => (4..7),
-               'quarters'   => (8..15),
-               'oitavas'    => (16..31),
-               'sixty_four' => (32..63) }
+
+    rounds = Draw.default_rounds
 
     rounds.each do |k, v|
       if k == 'champion'
@@ -81,9 +61,17 @@ class Draw < ActiveRecord::Base
     end
   end
 
+  def self.default_rounds
+    { 'champion'   => 1,
+      'final'      => (2..3),
+      'semis'      => (4..7),
+      'quarters'   => (8..15),
+      'oitavas'    => (16..31),
+      'sixty_four' => (32..63) }
+  end
+
   def create_matches_and_draw_positions(starting_point, name)
     starting_point.each do |t|
-      # p "t.even? ------- #{t.even?}"
       if t.even?
         m = Match.create!(match_number: t / 2, name: name, time: DateTime.new(2016, 2, 20, 6, 0, 0))
         matches << m

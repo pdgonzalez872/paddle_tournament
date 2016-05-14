@@ -17,6 +17,8 @@ class DrawPositionsController < ApplicationController
       redirect_to tournament_draw_path(tournament_id: tournament.id,
                                        id: draw.id)
     else
+      # should add a validation to the score, to test this line.
+      # Since there are no validations, it never fails.
       render 'edit'
     end
   end

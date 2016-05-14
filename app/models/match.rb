@@ -16,11 +16,6 @@ class Match < ActiveRecord::Base
     Player.find_by(id: loser_id)
   end
 
-  def calculate_loser
-    loser = players.select { |player| player.id != winner_id }
-    self.loser_id = loser[0].id
-  end
-
   def update_winner_and_loser(winner:, player_options:)
     self.winner_id = winner.id
     data = JSON.parse(player_options)
@@ -36,13 +31,6 @@ class Match < ActiveRecord::Base
   def update_score(score)
     self.score = score
     save
-  end
-
-  def display_previous_match_score(draw_position)
-    match = Draw.previous_match(draw_position: draw_position)
-    match.score.nil? ? '-' : match.score
-  rescue NoMethodError
-    return ''
   end
 
   def display_time

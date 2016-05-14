@@ -5,3 +5,8 @@ machine:
 dependencies:
   pre:
     - gem install bundler
+    - bundle install
+
+database:
+  post:
+    - bundle exec rake db:seed
