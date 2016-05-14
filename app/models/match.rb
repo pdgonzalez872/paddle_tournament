@@ -33,13 +33,6 @@ class Match < ActiveRecord::Base
     save
   end
 
-  def display_previous_match_score(draw_position)
-    match = Draw.previous_match(draw_position: draw_position)
-    match.score.nil? ? '-' : match.score
-  rescue NoMethodError
-    return ''
-  end
-
   def display_time
     time.strftime('%-I:%M')
   rescue NoMethodError
