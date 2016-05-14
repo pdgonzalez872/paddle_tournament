@@ -4,6 +4,14 @@ RSpec.describe Draw, type: :model do
   let(:draw)  { Draw.create(name: 'Main', size: 32) }
   let(:match) { draw.matches.find_by(match_number: 31) }
 
+  context 'associations' do
+    it { should belong_to(:tournament) }
+
+    it { should have_many(:matches) }
+    it { should have_many(:draw_positions) }
+    it { should have_many(:players) }
+  end
+
   it 'creates the correct class' do
     expect(draw).to be_instance_of described_class
   end
@@ -47,6 +55,41 @@ RSpec.describe Draw, type: :model do
           expect(last.draw_positions_number).to eq 63
         end
       end
+    end
+  end
+
+  context '#draw_positions_count' do
+    it 'returns the correct number of draw positions for a draw' do
+      expect(draw.draw_positions_count).to eq(63)
+    end
+  end
+
+  context '#create_draw_positions' do
+
+  end
+
+  context '#matches_count' do
+    it "displays the relationship between matches and the draw's size" do
+      expect(draw.matches_count).to eq(31)
+    end
+  end
+
+
+  context '#create_draw_structure' do
+
+  end
+
+  context '.default_rounds' do
+    it 'has a default for draw size and rounds' do
+      default_rounds = Draw.default_rounds
+
+      hardcode_defaults = { 'champion'   => 1,
+                            'final'      => (2..3),
+                            'semis'      => (4..7),
+                            'quarters'   => (8..15),
+                            'oitavas'    => (16..31),
+                            'sixty_four' => (32..63) }
+      expect(default_rounds).to eq(hardcode_defaults)
     end
   end
 end
