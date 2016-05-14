@@ -8,10 +8,14 @@ RSpec.describe Match, type: :model do
     expect(Match.new).to be_instance_of described_class
   end
 
-  #
-  # associations
-  #
-
+  context 'associations' do
+    it { should belong_to(:location) }
+    it { should belong_to(:draw) }
+    
+    it { should have_many(:draw_positions) }
+    it { should have_many(:draw_positions_players) }
+    it { should have_many(:players) }
+  end
 
   context '#winner' do
   end
