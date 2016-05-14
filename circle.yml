@@ -6,4 +6,7 @@ dependencies:
   pre:
     - gem install bundler
     - bundle install
-    - bundle exec rake db:drop db:create db:migrate db:seed RAILS_ENV=test
+
+database:
+  post:
+    - bundle exec rake db:seed
