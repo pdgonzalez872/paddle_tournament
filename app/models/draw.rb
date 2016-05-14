@@ -1,5 +1,5 @@
 class Draw < ActiveRecord::Base
-  # attr_accessor :complete?
+  # attr_accessor :default_rounds
 
   after_create :create_draw_structure
 

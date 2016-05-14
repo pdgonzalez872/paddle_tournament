@@ -64,32 +64,15 @@ RSpec.describe Draw, type: :model do
     end
   end
 
-  context '#create_draw_positions' do
-
-  end
-
   context '#matches_count' do
     it "displays the relationship between matches and the draw's size" do
       expect(draw.matches_count).to eq(31)
     end
   end
 
-
-  context '#create_draw_structure' do
-
-  end
-
-  context '.default_rounds' do
-    it 'has a default for draw size and rounds' do
-      default_rounds = Draw.default_rounds
-
-      hardcode_defaults = { 'champion'   => 1,
-                            'final'      => (2..3),
-                            'semis'      => (4..7),
-                            'quarters'   => (8..15),
-                            'oitavas'    => (16..31),
-                            'sixty_four' => (32..63) }
-      expect(default_rounds).to eq(hardcode_defaults)
-    end
+  context 'these are too hard to test by themselves' do
+    context '#create_draw_structure'
+    context '.default_rounds'
+    context '#create_draw_positions'
   end
 end
