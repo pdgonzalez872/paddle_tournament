@@ -15,25 +15,37 @@ describe 'when I visit the edit draw position page after seeding the test databa
     let(:tournament)  { Tournament.find_by(id: draw.tournament.id) }
     let(:draw)        { Draw.find(1) }
     let(:match)       { draw.matches.find_by(match_number: 16) }
+    let(:second_match){ draw.matches.find_by(match_number: 8)  }
     let(:player_1)    { Player.find_by(name: 'Laird/Watkins') }
 
-    it 'can advance players correctly and adds winners to matches' do
-      advance_winner(draw_position_id: 16, winner_name: 'Laird/Watkins')
-      advance_winner(draw_position_id: 17, winner_name: 'Brace/Slepian')
+    context 'can advance players and allocate data correctly' do
+      it 'can advance players correctly and adds winners to matches' do
+        advance_winner(draw_position_id: 16, winner_name: 'Laird/Watkins')
 
-      visit edit_tournament_draw_draw_position_path(tournament_id: 1, draw_id: 1, id: 8)
+        expect(second_match.has_only_one_player?).to be true
+        expect(second_match.has_adjacent_players?).to be true
+        expect(second_match.no_players_are_nil?).to be false
 
-      expect(page).to have_text('Laird/Watkins')
-      expect(player_1.id).to eq(match.winner_id)
+        advance_winner(draw_position_id: 17, winner_name: 'Brace/Slepian')
 
-      visit tournament_draw_match_path(id: match.id,
-                                       tournament_id: tournament.id,
-                                       draw_id: draw.id)
+        expect(second_match.has_only_one_player?).to eq(false)
 
-      expect(page).to have_text("Match Details")
-      expect(page).to have_text("Laird/Watkins  def	Gartzke/Schacherer")
-      expect(match.winner).to eq(player_1)
+        visit edit_tournament_draw_draw_position_path(tournament_id: 1, draw_id: 1, id: 8)
 
+        expect(page).to have_text('Laird/Watkins')
+        expect(player_1.id).to eq(match.winner_id)
+
+        visit tournament_draw_match_path(id: match.id,
+                                         tournament_id: tournament.id,
+                                         draw_id: draw.id)
+
+        expect(page).to have_text("Match Details")
+        expect(page).to have_text("Laird/Watkins  def	Gartzke/Schacherer")
+        expect(match.winner).to eq(player_1)
+        expect(second_match.has_two_players?).to eq true
+        expect(second_match.top_player_is_nil?).to be false
+        expect(second_match.bottom_player_is_nil?).to be false
+      end
     end
   end
 
